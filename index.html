@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alief Coffe Shop</title>
+  <link rel="stylesheet" href="assets/app-b481d50e.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+      scrollbar-color: none;
+    }
+
+    .navbar-scrolled {
+      backdrop-filter: blur(10px);
+      background: rgba(47, 27, 20, 0.9);
+    }
+
+    .gradient-animate {
+      background: linear-gradient(180deg, #2F1B14 0%, #3D2914 50%, #4A2C17 100%);
+      background-image: url('./images/background-coffee.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-blend-mode: multiply;
+      background-attachment: fixed;
+    }
+
+    /*        animation: gradientBG 10s ease infinite;
+      }
+      @keyframes gradientBG {
+        0% {
+          background-position: 0%50%;
+        }
+        50% {
+          background-position: 100%50%;
+        }
+        100% {
+          background-position: 0%50%;
+        }
+      } */
+
+    /* Floating Shapes */
+    .floating {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background: rgba(210, 180, 140, 0.3);
+      border-radius: 50%;
+      filter: blur(50px);
+      animation: float 10s infinite ease-in-out;
+    }
+
+    .floating:nth-child(2) {
+      left: 70%;
+      top: 30%;
+      animation-delay: 3s;
+      background: rgba(160, 82, 45, 0.3);
+    }
+
+    .floating:nth-child(3) {
+      left: 20%;
+      bottom: 20%;
+      animation-delay: 6s;
+      background: rgba(139, 69, 19, 0.3);
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-40px);
+      }
+
+      100% {
+        transform: translateY(0);
+      }
+    }
+
+    /* Particle */
+    #particleCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    /* Lazy Load */
+    .lazy-card {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .lazy-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Magnetic Cursor */
+    .magnetic {
+      display: inline-block;
+      transition: transform 0.2s ease;
+    }
+
+    /* Border Gradient Animasi */
+    .border-gradient {
+      position: relative;
+      display: inline-block;
+      padding: 4px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg,
+          #D2691E,
+          #8B4513,
+          #A0522D,
+          #D2691E);
+      animation: spin-border 10s linear infinite;
+    }
+
+    .border-gradient img {
+      border-radius: 50%;
+      display: block;
+    }
+
+    @keyframes spin-border {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Glassmorphism Contact Form */
+    .glass {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+    }
+
+    footer {
+      position: relative;
+      overflow: hidden;
+    }
+
+    footer::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -50%;
+      width: 200%;
+      height: 2px;
+      background: linear-gradient(90deg,
+          transparent,
+          #D2691E,
+          #8B4513,
+          transparent);
+      animation: footerGlow 5s linear infinite;
+    }
+
+    @keyframes footerGlow {
+      0% {
+        transform: translateX(-50%);
+      }
+
+      100% {
+        transform: translateX(50%);
+      }
+    }
+
+    /* Glow Effect */
+    .glow-effect {
+      box-shadow: 0 0 25px rgba(210, 105, 30, 0.7),
+        0 0 50px rgba(160, 82, 45, 0.3);
+      transition: box-shadow 0.6s ease;
+    }
+
+    .service-card {
+      opacity: 1;
+      transform-style: preserve-3d;
+      perspective: 1200px;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .service-card:hover {
+      box-shadow: 0 20px 50px rgba(210, 105, 30, 0.4);
+    }
+
+    .social-icon {
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .social-icon:hover {
+      background: rgba(255, 255, 255, 0.4);
+      transform: scale(1.1);
+      box-shadow: 0 0 12px rgba(210, 105, 30, 0.4);
+    }
+
+    /* .section-gradient-1 {
+      background: linear-gradient(180deg, #e3e3f3 0%, #d4d9ff 100%);
+    }
+
+    .section-gradient-2 {
+      background: linear-gradient(180deg, #d4d9ff 0%, #c9d6ff 100%);
+    }
+
+    .section-gradient-3 {
+      background: linear-gradient(180deg, #c9d6ff 0%, #bfc8ff 100%);
+    }
+
+    .section-gradient-4 {
+      background: linear-gradient(180deg, #bfc8ff 0%, #aebbff 100%);
+    } */
+
+    #scrollTopBtn {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    #scrollTopBtn.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Modal Menu */
+    .modal-container {
+      @apply fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm;
+    }
+
+    .modal-content {
+      @apply relative w-11/12 max-w-md rounded-xl bg-[#2F1B14] p-6 text-white shadow-lg transform transition-all duration-300 scale-95 opacity-0;
+    }
+
+    .modal-show .modal-content {
+      @apply scale-100 opacity-100;
+    }
+
+    .modal-close {
+      @apply absolute top-3 right-3 text-gray-300 hover:text-white;
+    }
+
+    .modal-img {
+      @apply w-full rounded-lg mb-4;
+    }
+
+    .modal-title {
+      @apply text-2xl font-bold mb-2;
+    }
+
+    .modal-desc {
+      @apply text-gray-300 mb-4;
+    }
+
+    .modal-price {
+      @apply text-[#D2691E] font-semibold text-lg;
+    }
+
+    .modal-btn {
+      @apply mt-3 w-full rounded-lg bg-[#D2691E] px-4 py-2 font-semibold text-white hover:bg-[#B8860B] transition;
+    }
+  </style>
+</head>
+
+<body class="bg-[#2F1B14] font-sans text-gray-200">
+  <!-- Floating Background Shapes -->
+  <div class="floating" style="left: 10%; top: 10%"></div>
+  <div class="floating"></div>
+  <div class="floating"></div>
+
+  <!-- Navbar -->
+  <nav id="navbar" class="fixed z-50 w-full bg-[#2F1B14]/90 shadow-md backdrop-blur-md transition">
+    <div class="mx-auto flex max-w-6xl items-center justify-center px-6 py-4">
+      <ul class="hidden gap-16 font-medium tracking-wide text-white md:flex items-center">
+        <li>
+          <a href="#heroTitle" class="magnetic hover:text-[#D2691E]">Home</a>
+        </li>
+        <li>
+          <a href="#about" class="magnetic hover:text-[#D2691E]">About</a>
+        </li>
+        <li>
+          <a href="#services" class="magnetic hover:text-[#D2691E]">Services</a>
+        </li>
+      </ul>
+
+      <a href="#heroTitle" class="magnetic mx-8 hover:scale-110 transition duration-300">
+        <img src="./images/logo-coffee.png" alt="Alief Coffee Shop" class="w-16 h-16">
+      </a>
+
+      <ul class="hidden gap-16 font-medium tracking-wide text-white md:flex items-center">
+        <li>
+          <a href="#menu" class="magnetic hover:text-[#D2691E]">Menu</a>
+        </li>
+        <li>
+          <a href="#contact" class="magnetic hover:text-[#D2691E]">Contact</a>
+        </li>
+        <li>
+          <a href="#" class="magnetic hover:text-[#D2691E]">Other</a>
+        </li>
+      </ul>
+
+      <button id="menuToggle" class="p-2 text-white focus:outline-none md:hidden absolute right-6">
+        <svg id="menuIcon" class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu"
+      class="bg-transparant gap-6 mt-2 hidden origin-top scale-y-0 transform flex flex-col rounded-b-2xl px-8 pb-6 opacity-0 shadow-2xl transition-all duration-300 ease-in-out">
+      <a href="#heroTitle"
+        class="menu-item border-b border-gray-700/50 py-3 text-lg font-medium text-white transition-all duration-300 hover:pl-2 hover:text-[#D2691E]">
+        Home
+      </a>
+      <a href="#about"
+        class="menu-item border-b border-gray-700/50 py-3 text-lg font-medium text-white transition-all duration-300 hover:pl-2 hover:text-[#D2691E]">
+        About
+      </a>
+      <a href="#services"
+        class="menu-item border-b border-gray-700/50 py-3 text-lg font-medium text-white transition-all duration-300 hover:pl-2 hover:text-[#D2691E]">
+        Services
+      </a>
+      <a href="#menu"
+        class="menu-item border-b border-gray-700/50 py-3 text-lg font-medium text-white transition-all duration-300 hover:pl-2 hover:text-[#D2691E]">
+        Menu
+      </a>
+      <a href="#contact"
+        class="menu-item py-3 text-lg font-medium text-white transition-all duration-300 hover:pl-2 hover:text-[#D2691E]">
+        Contact
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section
+    class="gradient-animate relative flex min-h-screen flex-col items-center justify-center overflow-hidden text-center">
+    <h2 id="heroTitle" class="text-5xl font-extrabold text-white drop-shadow-lg md:text-7xl">
+      Alief Coffee Shop
+    </h2>
+    <p class="mx-auto mt-4 max-w-xl text-lg text-gray-100 md:text-2xl">
+      Make your Smile | Make Your Happy | Make Your Day
+    </p>
+    <a href="#about"
+      class="magnetic relative z-10 mt-6 rounded-full bg-[#D2691E] px-8 py-3 text-base font-semibold text-white shadow-lg transition hover:scale-105 hover:bg-[#B8860B] md:text-lg">
+      Jelajahi Tentang Alief Coffee
+    </a>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="relative overflow-hidden py-24">
+    <canvas id="particleCanvas"></canvas>
+    <div class="relative z-10 mx-auto flex max-w-6xl flex-col items-center gap-10 px-4 md:flex-row">
+      <div class="flex justify-center md:w-1/2" data-aos="fade-right">
+        <div id="aboutImage" class="gap-10" data-aos="fade-right">
+          <img src="./images/logo-coffee.png" alt="Alief Coffee Shop" class="h-64 w-64 shadow-2xl" />
+        </div>
+      </div>
+      <div class="md:w-1/2" data-aos="fade-left">
+        <h3 class="mb-4 text-4xl font-extrabold text-[#D2691E]">
+          Tentang Alief Coffee Shop
+        </h3>
+        <p class="mb-6 text-lg leading-relaxed text-gray-300">
+          Saya
+          <span class="font-semibold text-[#F4A460]">Alief Syahwal Ramadhan</span>
+          , Barista yang suka membuat kopi
+          <span class="text-[#D2691E]">hangat, dingin, dan tentunya enak</span>
+          .
+        </p>
+        <div class="mb-6 flex flex-wrap gap-3">
+          <span
+            class="rounded-full bg-[#D2691E]/20 px-3 py-1 text-sm font-medium text-[#8B4513] shadow-sm transition hover:bg-[#D2691E]/30">
+            Coffee Shop
+          </span>
+          <span
+            class="rounded-full bg-[#D2691E]/20 px-3 py-1 text-sm font-medium text-[#8B4513] shadow-sm transition hover:bg-[#D2691E]/30">
+            Coffee Lover
+          </span>
+          <span
+            class="rounded-full bg-[#D2691E]/20 px-3 py-1 text-sm font-medium text-[#8B4513] shadow-sm transition hover:bg-[#D2691E]/30">
+            Coffee Day
+          </span>
+          <span
+            class="rounded-full bg-[#D2691E]/20 px-3 py-1 text-sm font-medium text-[#8B4513] shadow-sm transition hover:bg-[#D2691E]/30">
+            Coffee Shop
+          </span>
+          <span
+            class="rounded-full bg-[#D2691E]/20 px-3 py-1 text-sm font-medium text-[#8B4513] shadow-sm transition hover:bg-[#D2691E]/30">
+            Coffee Lover
+          </span>
+          <span
+            class="rounded-full bg-[#D2691E]/20 px-3 py-1 text-sm font-medium text-[#8B4513] shadow-sm transition hover:bg-[#D2691E]/30">
+            Coffee Day
+          </span>
+        </div>
+        <a href="#menu"
+          class="magnetic inline-block rounded-lg bg-[#8B4513] px-6 py-3 text-white shadow-lg transition hover:scale-105 hover:bg-[#A0522D]">
+          Lihat Coffee Saya →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="relative overflow-hidden py-24 text-white">
+    <div class="mx-auto max-w-6xl px-6 text-center">
+      <h3 class="mb-4 text-3xl font-extrabold text-[#D2691E]">
+        Apa yang Bisa Saya Buat?
+      </h3>
+      <p class="mb-10 text-lg text-gray-300 opacity-90">
+        Saya siap membuat kopi dengan cita rasa yang mewah dan elegan.
+      </p>
+
+      <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="service-card relative rounded-2xl bg-white/10 p-6 shadow-lg backdrop-blur-md">
+          <div
+            class="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#D2691E]/20 to-[#8B4513]/20 opacity-0 transition duration-300 hover:opacity-100">
+          </div>
+          <div class="relative z-10 flex flex-col items-center text-center">
+            <div class="mb-4 text-4xl">
+              <img src="./images/coffee-hot.svg" alt="Kopi Hangat" class="w-16 h-16">
+            </div>
+            <h4 class="mb-2 text-xl font-bold text-[#D2691E]">
+              Kopi Hangat
+            </h4>
+            <p class="text-gray-300">
+              Kopi hangat yang membuat Anda merasa hangat dan nyaman.
+            </p>
+          </div>
+        </div>
+        <div class="service-card relative rounded-2xl bg-white/10 p-6 shadow-lg backdrop-blur-md">
+          <div
+            class="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#D2691E]/20 to-[#8B4513]/20 opacity-0 transition duration-300 hover:opacity-100">
+          </div>
+          <div class="relative z-10 flex flex-col items-center text-center">
+            <div class="mb-4 text-4xl">
+              <img src="./images/coffee-iced.svg" alt="Kopi Dingin" class="w-16 h-16">
+            </div>
+            <h4 class="mb-2 text-xl font-bold text-[#D2691E]">
+              Kopi Dingin
+            </h4>
+            <p class="text-gray-300">
+              Kopi dingin yang membuat Anda merasa dingin dan nyaman.
+            </p>
+          </div>
+        </div>
+        <div class="service-card relative rounded-2xl bg-white/10 p-6 shadow-lg backdrop-blur-md">
+          <div
+            class="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#D2691E]/20 to-[#8B4513]/20 opacity-0 transition duration-300 hover:opacity-100">
+          </div>
+          <div class="relative z-10 flex flex-col items-center text-center">
+            <div class="mb-4 text-4xl">
+              <img src="./images/coffee-delicious.svg" alt="Kopi Enak" class="w-16 h-16">
+            </div>
+            <h4 class="mb-2 text-xl font-bold text-[#D2691E]">
+              Kopi Enak
+            </h4>
+            <p class="text-gray-300">
+              Kopi enak yang membuat Anda merasa enak dan nyaman.
+            </p>
+          </div>
+        </div>
+        <div class="service-card relative rounded-2xl bg-white/10 p-6 shadow-lg backdrop-blur-md">
+          <div
+            class="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#D2691E]/20 to-[#8B4513]/20 opacity-0 transition duration-300 hover:opacity-100">
+          </div>
+          <div class="relative z-10 flex flex-col items-center text-center">
+            <div class="mb-4 text-4xl">
+              <img src="./images/coffee-fresh.svg" alt="Kopi Segar" class="w-16 h-16">
+            </div>
+            <h4 class="mb-2 text-xl font-bold text-[#D2691E]">
+              Kopi Segar
+            </h4>
+            <p class="text-gray-300">
+              Kopi segar yang membuat Anda merasa segar dan nyaman.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU SECTION -->
+  <section id="menu" class="py-16 text-gray-700 relative">
+    <canvas id="particleCanvas"></canvas>
+    <div class="mx-auto max-w-6xl px-6">
+      <h3 class="mb-10 text-center text-3xl font-bold text-[#D2691E]">Alief Coffee Menu</h3>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
+        <!-- Card Cappucino -->
+        <div onclick="openModal('menuCappucino')"
+          class="project-card cursor-pointer transform overflow-hidden rounded-xl bg-white/10 shadow-lg backdrop-blur-md transition duration-300 hover:scale-105">
+          <img src="./images/cappucino.jpg" alt="Cappucino" class="opacity-90 w-full h-48 object-cover" />
+          <div class="p-4">
+            <h4 class="text-lg font-bold">Cappucino</h4>
+            <p class="mt-2 text-sm text-gray-300">
+              Cappucino adalah kopi yang dibuat dengan campuran espresso dan susu.
+            </p>
+            <span class="mt-3 inline-block text-base font-semibold text-[#D2691E]">
+              Rp 25.000
+            </span>
+          </div>
+        </div>
+
+        <!-- Card Americano -->
+        <div onclick="openModal('menuAmericano')"
+          class="project-card cursor-pointer transform overflow-hidden rounded-xl bg-white/10 shadow-lg backdrop-blur-md transition duration-300 hover:scale-105">
+          <img src="./images/americano.jpg" alt="Americano" class="opacity-90 w-full h-48 object-cover" />
+          <div class="p-4">
+            <h4 class="text-lg font-bold">Americano</h4>
+            <p class="mt-2 text-sm text-gray-300">
+              Americano dibuat dengan espresso yang dicampur air panas.
+            </p>
+            <span class="mt-3 inline-block text-base font-semibold text-[#D2691E]">
+              Rp 22.000
+            </span>
+          </div>
+        </div>
+
+        <!-- Card Latte -->
+        <div onclick="openModal('menuLatte')"
+          class="project-card cursor-pointer transform overflow-hidden rounded-xl bg-white/10 shadow-lg backdrop-blur-md transition duration-300 hover:scale-105">
+          <img src="./images/latte.jpg" alt="Latte" class="opacity-90 w-full h-48 object-cover" />
+          <div class="p-4">
+            <h4 class="text-lg font-bold">Latte</h4>
+            <p class="mt-2 text-sm text-gray-300">
+              Latte memiliki rasa lembut dengan campuran susu steamed dan foam tipis.
+            </p>
+            <span class="mt-3 inline-block text-base font-semibold text-[#D2691E]">
+              Rp 27.000
+            </span>
+          </div>
+        </div>
+
+        <!-- Card Espresso -->
+        <div onclick="openModal('menuEspresso')"
+          class="project-card cursor-pointer transform overflow-hidden rounded-xl bg-white/10 shadow-lg backdrop-blur-md transition duration-300 hover:scale-105">
+          <img src="./images/espresso.jpg" alt="Espresso" class="opacity-90 w-full h-48 object-cover" />
+          <div class="p-4">
+            <h4 class="text-lg font-bold">Espresso</h4>
+            <p class="mt-2 text-sm text-gray-300">
+              Espresso adalah kopi pekat hasil ekstraksi tekanan tinggi.
+            </p>
+            <span class="mt-3 inline-block text-base font-semibold text-[#D2691E]">
+              Rp 20.000
+            </span>
+          </div>
+        </div>
+
+        <!-- Card Macchiato -->
+        <div onclick="openModal('menuMacchiato')"
+          class="project-card cursor-pointer transform overflow-hidden rounded-xl bg-white/10 shadow-lg backdrop-blur-md transition duration-300 hover:scale-105">
+          <img src="./images/machiato.jpg" alt="Macchiato" class="opacity-90 w-full h-48 object-cover" />
+          <div class="p-4">
+            <h4 class="text-lg font-bold">Macchiato</h4>
+            <p class="mt-2 text-sm text-gray-300">
+              Macchiato memiliki rasa kuat dengan sedikit busa susu di atasnya.
+            </p>
+            <span class="mt-3 inline-block text-base font-semibold text-[#D2691E]">
+              Rp 26.000
+            </span>
+          </div>
+        </div>
+
+        <!-- Card Matcha Latte -->
+        <div onclick="openModal('menuMatcha')"
+          class="project-card cursor-pointer transform overflow-hidden rounded-xl bg-white/10 shadow-lg backdrop-blur-md transition duration-300 hover:scale-105">
+          <img src="./images/matcha-latte.jpg" alt="Matcha Latte" class="opacity-90 w-full h-48 object-cover" />
+          <div class="p-4">
+            <h4 class="text-lg font-bold">Matcha Latte</h4>
+            <p class="mt-2 text-sm text-gray-300">
+              Matcha Latte adalah kombinasi matcha Jepang dan susu yang creamy.
+            </p>
+            <span class="mt-3 inline-block text-base font-semibold text-[#D2691E]">
+              Rp 28.000
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cappucino Modal -->
+  <div id="menuCappucino"
+    class="modal-container fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm">
+    <div class="modal-content relative w-11/12 max-w-md rounded-xl bg-[#2F1B14] p-6 text-white shadow-lg">
+      <button onclick="closeModal('menuCappucino')"
+        class="modal-close absolute top-1 right-2 text-gray-300 hover:text-white">✕</button>
+      <img src="./images/cappucino.jpg" alt="Cappucino" class="modal-img w-full rounded-lg mb-4" />
+      <h2 class="modal-title text-2xl font-bold mb-2">Cappucino</h2>
+      <p class="modal-desc text-gray-300 mb-4">Cappucino dibuat dengan espresso, susu panas, dan foam lembut di atasnya.
+      </p>
+      <span class="modal-price text-[#D2691E] font-semibold text-lg">Rp 25.000</span>
+      <button
+        class="modal-btn mt-4 w-full rounded-lg bg-[#D2691E] px-4 py-2 font-semibold text-white hover:bg-[#B8860B] transition">Pesan
+        Sekarang</button>
+    </div>
+  </div>
+
+  <!-- Modal Lainnya (Americano, Latte, dll) -->
+  <div id="menuAmericano"
+    class="modal-container fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm">
+    <div class="modal-content relative w-11/12 max-w-md rounded-xl bg-[#2F1B14] p-6 text-white shadow-lg">
+      <button onclick="closeModal('menuAmericano')"
+        class="modal-close absolute top-1 right-2 text-gray-300 hover:text-white">✕</button>
+      <img src="./images/americano.jpg" alt="Americano" class="modal-img w-full rounded-lg mb-4" />
+      <h2 class="modal-title">Americano</h2>
+      <p class="modal-desc text-gray-300 mb-4">Americano adalah campuran espresso dengan air panas, menghasilkan rasa
+        kopi murni tanpa susu.</p>
+      <span class="modal-price">Rp 22.000</span>
+      <button
+        class="modal-btn mt-4 w-full rounded-lg bg-[#D2691E] px-4 py-2 font-semibold text-white hover:bg-[#B8860B] transition">Pesan
+        Sekarang</button>
+    </div>
+  </div>
+
+  <div id="menuLatte"
+    class="modal-container fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm">
+    <div class="modal-content relative w-11/12 max-w-md rounded-xl bg-[#2F1B14] p-6 text-white shadow-lg">
+      <button onclick="closeModal('menuLatte')"
+        class="modal-close absolute top-1 right-2 text-gray-300 hover:text-white">✕</button>
+      <img src="./images/latte.jpg" alt="Latte" class="modal-img w-full rounded-lg mb-4" />
+      <h2 class="modal-title">Latte</h2>
+      <p class="modal-desc text-gray-300 mb-4">Latte lembut dengan campuran espresso, susu panas, dan busa tipis di
+        atasnya.</p>
+      <span class="modal-price">Rp 27.000</span>
+      <button
+        class="modal-btn mt-4 w-full rounded-lg bg-[#D2691E] px-4 py-2 font-semibold text-white hover:bg-[#B8860B] transition">Pesan
+        Sekarang</button>
+    </div>
+  </div>
+
+  <div id="menuEspresso"
+    class="modal-container fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm">
+    <div class="modal-content relative w-11/12 max-w-md rounded-xl bg-[#2F1B14] p-6 text-white shadow-lg">
+      <button onclick="closeModal('menuEspresso')"
+        class="modal-close absolute top-1 right-2 text-gray-300 hover:text-white">✕</button>
+      <img src="./images/espresso.jpg" alt="Espresso" class="modal-img w-full rounded-lg mb-4" />
+      <h2 class="modal-title">Espresso</h2>
+      <p class="modal-desc text-gray-300 mb-4">Kopi pekat dengan rasa kuat khas Italia yang diseduh dengan tekanan
+        tinggi.</p>
+      <span class="modal-price">Rp 20.000</span>
+      <button
+        class="modal-btn mt-4 w-full rounded-lg bg-[#D2691E] px-4 py-2 font-semibold text-white hover:bg-[#B8860B] transition">Pesan
+        Sekarang</button>
+    </div>
+  </div>
+
+  <div id="menuMacchiato"
+    class="modal-container fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm">
+    <div class="modal-content relative w-11/12 max-w-md rounded-xl bg-[#2F1B14] p-6 text-white shadow-lg">
+      <button onclick="closeModal('menuMacchiato')"
+        class="modal-close absolute top-1 right-2 text-gray-300 hover:text-white">✕</button>
+      <img src="./images/machiato.jpg" alt="Macchiato" class="modal-img w-full rounded-lg mb-4" />
+      <h2 class="modal-title">Macchiato</h2>
+      <p class="modal-desc text-gray-300 mb-4">Macchiato menonjolkan rasa espresso yang kuat dengan sedikit susu di
+        atasnya.</p>
+      <span class="modal-price">Rp 26.000</span>
+      <button
+        class="modal-btn mt-4 w-full rounded-lg bg-[#D2691E] px-4 py-2 font-semibold text-white hover:bg-[#B8860B] transition">Pesan
+        Sekarang</button>
+    </div>
+  </div>
+
+  <div id="menuMatcha"
+    class="modal-container fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm">
+    <div class="modal-content relative w-11/12 max-w-md rounded-xl bg-[#2F1B14] p-6 text-white shadow-lg">
+      <button onclick="closeModal('menuMatcha')"
+        class="modal-close absolute top-1 right-2 text-gray-300 hover:text-white">✕</button>
+      <img src="./images/matcha-latte.jpg" alt="Matcha Latte" class="modal-img w-full rounded-lg mb-4" />
+      <h2 class="modal-title">Matcha Latte</h2>
+      <p class="modal-desc text-gray-300 mb-4">Perpaduan lembut matcha Jepang premium dan susu menghasilkan cita rasa
+        creamy & segar.</p>
+      <span class="modal-price">Rp 28.000</span>
+      <button
+        class="modal-btn mt-4 w-full rounded-lg bg-[#D2691E] px-4 py-2 font-semibold text-white hover:bg-[#B8860B] transition">Pesan
+        Sekarang</button>
+    </div>
+  </div>
+
+
+  <!-- Contact / Reservation Section -->
+  <section id="contact" class="bg-white/10 backdrop-blur-md py-16">
+    <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-6 text-[#D2691E]">Hubungi Kami</h2>
+        <p class="text-gray-300 mb-10">
+          Punya pertanyaan, pesanan khusus, atau ingin jadi mitra kami?
+          Tim kami siap melayani kamu dengan cepat dan hangat — layaknya secangkir kopi pagi.
+        </p>
+
+        <div class="flex flex-row justify-between gap-12">
+          <!-- Email -->
+          <a href="mailto:aliefsyahwal@gmail.com" class="group flex flex-col items-center transition hover:scale-110">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="w-8 h-8 text-[#D2691E] mb-2 group-hover:text-[#B8860B]">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25H4.5a2.25 2.25 0 
+                01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 
+                00-2.25 2.25m19.5 0v.243a2.25 2.25 0 
+                01-1.068 1.916l-7.5 4.615a2.25 2.25 0 
+                01-2.364 0L3.318 8.91A2.25 2.25 0 
+                012.25 6.993V6.75" />
+            </svg>
+            <span class="text-sm text-gray-300">Email</span>
+          </a>
+
+          <!-- WhatsApp -->
+          <a href="https://wa.me/+6281234567890" class="group flex flex-col items-center transition hover:scale-110">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor"
+              class="w-8 h-8 text-[#D2691E] mb-2 group-hover:text-[#B8860B]">
+              <path
+                d="M380.9 97.1C339-5.8 240.5-32 160.8 13.3 86.3 55.5 48 142.2 71.4 222.3L46 316l97.9-25.7c74.6 40.8 166.8 21.7 218.8-44.6 56.6-73.6 49.8-182.3-21.8-249.6zM223.6 370.9c-40.5 0-80.1-10.8-114.4-31.3l-8.1-4.8-57.9 15.2 15.5-56.4-5.3-8.2C33.1 239 26 198.5 34.4 159c14.5-70.1 77.6-120.2 149.4-120.2 84.6 0 153.5 68.9 153.5 153.5 0 84.6-68.9 153.5-153.7 153.5zm93.2-112.2c-4.6-2.3-27.2-13.4-31.4-15-4.2-1.5-7.2-2.3-10.2 2.3s-11.7 15-14.3 18.1-5.3 3.5-9.9 1.2-19.3-7.1-36.8-22.5c-13.6-12.1-22.7-27.1-25.4-31.7s-.3-7 2-9.3c2.1-2.1 4.6-5.3 6.8-7.9 2.3-2.6 3-4.6 4.6-7.6s.8-5.8-.4-8.1c-1.2-2.3-10.2-24.6-14-33.8-3.7-9-7.5-7.8-10.2-8-2.6-.2-5.8-.2-8.9-.2s-8.1 1.2-12.3 5.8c-4.2 4.6-16.1 15.8-16.1 38.6s16.5 44.7 18.8 47.8c2.3 3 32.4 49.4 78.5 69.3 10.9 4.7 19.4 7.5 26 9.6 10.9 3.5 20.8 3 28.6 1.8 8.7-1.3 27.2-11.1 31-21.9 3.8-10.8 3.8-20.1 2.7-22.1-1-2-4.2-3.2-8.8-5.5z" />
+            </svg>
+            <span class="text-sm text-gray-300">WhatsApp</span>
+          </a>
+
+          <!-- Lokasi -->
+          <a href="https://maps.google.com" target="_blank"
+            class="group flex flex-col items-center transition hover:scale-110">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="w-8 h-8 text-[#D2691E] mb-2 group-hover:text-[#B8860B]">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 
+                11-6 0 3 3 0 016 0zm-9.75 0c0 
+                7.5 6.75 11.25 6.75 11.25S18.75 
+                18 18.75 10.5A6.75 6.75 0 
+                0012 3.75 6.75 6.75 0 
+                005.25 10.5z" />
+            </svg>
+            <span class="text-sm text-gray-300">Alamat</span>
+          </a>
+        </div>
+      </div>
+      <img src="/images/logo-coffee.png" alt="Barista Illustration" class="w-72 mx-auto lg:mx-0 mt-10" />
+    </div>
+
+    <!-- Right Side: Contact Form -->
+    <div class="bg-white rounded-2xl shadow-lg border border-[#D2691E] p-8">
+      <h3 class="text-2xl text-center font-bold mb-4 text-[#D2691E]">Kirim Pesan ke Kami</h3>
+
+      <form action="#" method="POST" class="space-y-4">
+        <input type="hidden" name="_token" value="8qoH77SWTqI4YZlzcjUi1lfQvwJysjKD7nBl40s6" />
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <input type="text" name="name" placeholder="Nama Lengkap"
+            class="w-full rounded-lg border border-[#D2691E] bg-[#fcf9f5] p-3 focus:border-[#8B4513] focus:ring-2 focus:ring-[#D2691E] outline-none"
+            required />
+          <input type="email" name="email" placeholder="Alamat Email"
+            class="w-full rounded-lg border border-[#D2691E] bg-[#fcf9f5] p-3 focus:border-[#8B4513] focus:ring-2 focus:ring-[#D2691E] outline-none"
+            required />
+        </div>
+
+        <select name="subject"
+          class="w-full rounded-lg border border-[#D2691E] bg-[#fcf9f5] p-3 focus:border-[#8B4513] focus:ring-2 focus:ring-[#D2691E] outline-none"
+          required>
+          <option value="">Pilih Jenis Pesan</option>
+          <option value="reservasi">Reservasi Meja</option>
+          <option value="pesanan">Pesanan Minuman</option>
+          <option value="kerjasama">Kerjasama Bisnis</option>
+          <option value="lainnya">Lainnya</option>
+        </select>
+
+        <textarea name="message" rows="4" placeholder="Tulis pesan Anda..."
+          class="w-full rounded-lg border border-[#D2691E] bg-[#fcf9f5] mt-4 p-3 focus:border-[#8B4513] focus:ring-2 focus:ring-[#D2691E] outline-none"
+          required></textarea>
+
+        <button type="submit"
+          class="w-full rounded-lg bg-[#8B4513] py-3 font-semibold text-gray-700 shadow-md transition-all duration-300 hover:bg-[#A0522D] hover:shadow-lg">
+          Pesan Sekarang
+        </button>
+      </form>
+    </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="relative overflow-hidden py-6 text-center text-[#D2691E]">
+    <p>© 2025 Alief Coffee Shop | All Rights Reserved</p>
+  </footer>
+
+  <!-- Tombol Scroll ke Atas -->
+  <button id="scrollTopBtn"
+    class="fixed bottom-6 right-6 z-50 hidden rounded-full bg-[#D2691E] p-3 shadow-lg transition hover:scale-110 hover:bg-[#F4A460]">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"
+      stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+    </svg>
+  </button>
+
+  <!-- Scripts Animasi -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+  <script src="assets/app-478fd0a3.js"></script>
+  <script>
+    AOS.init({ duration: 1400, once: true });
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Navbar Scroll
+    document.addEventListener("scroll", () => {
+      document
+        .getElementById("navbar")
+        .classList.toggle("navbar-scrolled", window.scrollY > 50);
+    });
+    // Modal Menu
+    function openModal(id) {
+      const modal = document.getElementById(id);
+      if (!modal) return;
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+      setTimeout(() => modal.classList.add("modal-show"), 10);
+    }
+
+    function closeModal(id) {
+      const modal = document.getElementById(id);
+      if (!modal) return;
+      modal.classList.remove("modal-show");
+      setTimeout(() => {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      }, 200);
+    }
+
+    // Tutup modal kalo klik di luar isi modal
+    document.querySelectorAll(".modal-container").forEach((modal) => {
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal(modal.id);
+      });
+    });
+    // Mobile Menu
+    const menuToggle = document.getElementById("menuToggle");
+    const mobileMenu = document.getElementById("mobileMenu");
+
+    menuToggle.addEventListener("click", () => {
+      if (mobileMenu.classList.contains("hidden")) {
+        // Show Menu
+        mobileMenu.classList.remove("hidden");
+        setTimeout(() => {
+          mobileMenu.classList.remove("scale-y-0", "opacity-0");
+          mobileMenu.classList.add("scale-y-100", "opacity-100");
+        }, 10);
+
+        // Animate Links One by One
+        document
+          .querySelectorAll("#mobileMenu .menu-item")
+          .forEach((item, i) => {
+            item.style.opacity = "0";
+            item.style.transform = "translateX(-10px)";
+            setTimeout(() => {
+              item.style.opacity = "1";
+              item.style.transform = "translateX(0)";
+              item.style.transition = "all 0.3s ease";
+            }, 100 * i);
+          });
+      } else {
+        // Hide Menu
+        mobileMenu.classList.add("scale-y-0", "opacity-0");
+        setTimeout(() => {
+          mobileMenu.classList.add("hidden");
+        }, 300);
+      }
+    });
+    // Hero Text Morph
+    const texts = [
+      "Alief Coffee Shop",
+      "Coffee Shop",
+      "Coffee Lover",
+      "Coffee Day",
+    ];
+    let i = 0;
+    setInterval(() => {
+      gsap.to("#heroTitle", {
+        opacity: 0,
+        duration: 1,
+        onComplete: () => {
+          i = (i + 1) % texts.length;
+          document.getElementById("heroTitle").textContent = texts[i];
+          gsap.to("#heroTitle", { opacity: 1, duration: 1 });
+        },
+      });
+    }, 3000);
+
+    // Parallax About Image
+    const aboutImg = document.getElementById("aboutImage");
+    window.addEventListener("mousemove", (e) => {
+      const x = (window.innerWidth / 2 - e.clientX) / 50;
+      const y = (window.innerHeight / 2 - e.clientY) / 50;
+      aboutImg.style.transform = `translate(${x}px,${y}px) scale(1.05)`;
+    });
+    aboutImg.addEventListener(
+      "mouseleave",
+      () => (aboutImg.style.transform = "translate(0,0) scale(1)")
+    );
+
+    // Particle Background
+    const canvas = document.getElementById("particleCanvas"),
+      ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = document.getElementById("about").offsetHeight;
+    let particles = [];
+    for (let i = 0; i < 50; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 3,
+        dx: (Math.random() - 0.5) * 0.5,
+        dy: (Math.random() - 0.5) * 0.5,
+      });
+    }
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "rgba(210,105,30,0.3)";
+      particles.forEach((p) => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+        p.x += p.dx;
+        p.y += p.dy;
+        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+      });
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    // Lazy Load Projects
+    const cards = document.querySelectorAll(".lazy-card");
+    window.addEventListener("scroll", () => {
+      cards.forEach((c) => {
+        const rect = c.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 50) c.classList.add("visible");
+      });
+    });
+
+    // Magnetic Cursor
+    document.querySelectorAll(".magnetic").forEach((el) => {
+      el.addEventListener("mousemove", (e) => {
+        const r = el.getBoundingClientRect(),
+          x = (e.clientX - (r.left + r.width / 2)) / 5,
+          y = (e.clientY - (r.top + r.height / 2)) / 5;
+        el.style.transform = `translate(${x}px,${y}px)`;
+      });
+      el.addEventListener(
+        "mouseleave",
+        () => (el.style.transform = "translate(0,0)")
+      );
+    });
+
+    // Service Animation Card
+    gsap.from(".service-card", {
+      scrollTrigger: {
+        trigger: "#services", // ID section services
+        start: "top 30%", // mulai saat 30% viewport
+        toggleActions: "play none none reverse",
+      },
+      opacity: 0,
+      y: 80,
+      scale: 0.8,
+      rotateY: 10,
+      duration: 1.2,
+      stagger: 0.3,
+      ease: "back.out(1.7)",
+      onComplete: () => {
+        document.querySelectorAll(".service-card").forEach((card) => {
+          card.classList.add("glow-effect");
+        });
+        setTimeout(() => {
+          document.querySelectorAll(".service-card").forEach((card) => {
+            card.classList.remove("glow-effect");
+          });
+        }, 1200);
+      },
+    });
+
+    // 🎯 Tilt Hover Premium
+    document.querySelectorAll(".service-card").forEach((card) => {
+      card.addEventListener("mousemove", (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * 6;
+        const rotateY = ((x - centerX) / centerX) * -6;
+        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.08)`;
+      });
+      card.addEventListener("mouseleave", () => {
+        card.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
+      });
+    });
+
+    // Button To TOP
+    const scrollBtn = document.getElementById("scrollTopBtn");
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        scrollBtn.classList.add("show");
+        scrollBtn.classList.remove("hidden");
+      } else {
+        scrollBtn.classList.remove("show");
+        setTimeout(() => scrollBtn.classList.add("hidden"), 300);
+      }
+    });
+
+    scrollBtn.addEventListener("click", () => {
+      gsap.to(window, {
+        duration: 1,
+        scrollTo: { y: 0 },
+        ease: "power2.out",
+      });
+    });
+
+    // Send To Email
+    document
+      .getElementById("contactForm")
+      .addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const form = e.target;
+        const formData = new FormData(form);
+
+        const response = await fetch("http://localhost/contact/send-ajax", {
+          method: "POST",
+          headers: {
+            "X-CSRF-TOKEN": "8qoH77SWTqI4YZlzcjUi1lfQvwJysjKD7nBl40s6",
+          },
+          body: formData,
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          form.reset();
+          const notif = document.getElementById("notif");
+          notif.classList.remove("hidden");
+          notif.classList.remove("scale-0");
+          notif.classList.add("scale-100");
+
+          setTimeout(() => {
+            notif.classList.add("scale-0");
+            setTimeout(() => notif.classList.add("hidden"), 300);
+          }, 3000);
+        }
+      });
+  </script>
+</body>
+
+</html>
