@@ -1,0 +1,265 @@
+/* Payment System Styles for Alief Coffee Shop */
+
+/* Base Styles */
+.payment-gradient {
+  background: linear-gradient(180deg, #2F1B14 0%, #3D2914 50%, #4A2C17 100%);
+  background-image: url('./images/background-coffee.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: multiply;
+  background-attachment: fixed;
+}
+
+/* Glass Morphism Effects - Updated for better readability */
+.glass-card {
+  background: rgba(47, 27, 20, 0.95);
+  border: 2px solid #D2691E;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.payment-card {
+  background: rgba(47, 27, 20, 0.9);
+  border: 2px solid rgba(210, 105, 30, 0.8);
+  transition: all 0.3s ease;
+}
+
+.payment-card:hover {
+  background: rgba(61, 41, 20, 0.95);
+  border-color: #D2691E;
+  box-shadow: 0 15px 35px rgba(210, 105, 30, 0.4);
+  transform: translateY(-5px);
+}
+
+/* Button Styles */
+.btn-primary {
+  background: linear-gradient(135deg, #D2691E, #B8860B);
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #B8860B, #A0522D);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(210, 105, 30, 0.4);
+}
+
+.btn-whatsapp {
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  transition: all 0.3s ease;
+}
+
+.btn-whatsapp:hover {
+  background: linear-gradient(135deg, #128C7E, #075E54);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+}
+
+/* QRIS Specific Styles */
+.qris-container {
+  background: rgba(255, 255, 255, 0.98);
+  border: 3px solid #D2691E;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+}
+
+.qris-code {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Countdown Timer */
+.countdown-timer {
+  background: linear-gradient(135deg, #D2691E, #B8860B);
+  color: white;
+  font-weight: bold;
+  font-family: 'Courier New', monospace;
+}
+
+/* Step Indicators */
+.step-indicator {
+  background: rgba(47, 27, 20, 0.9);
+  border: 2px solid rgba(210, 105, 30, 0.8);
+  transition: all 0.3s ease;
+}
+
+.step-indicator:hover {
+  background: rgba(61, 41, 20, 0.95);
+  border-color: #D2691E;
+}
+
+.step-number {
+  background: linear-gradient(135deg, #D2691E, #B8860B);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+  box-shadow: 0 4px 12px rgba(210, 105, 30, 0.3);
+}
+
+/* Order Summary */
+.order-summary {
+  background: rgba(47, 27, 20, 0.95);
+  border: 2px solid #D2691E;
+}
+
+/* Success Page Styles */
+.success-icon {
+  animation: successPulse 2s ease-in-out infinite;
+}
+
+@keyframes successPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Floating Animation */
+.floating-element {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  background: rgba(210, 180, 140, 0.3);
+  border-radius: 50%;
+  filter: blur(50px);
+  animation: float 10s infinite ease-in-out;
+}
+
+.floating-element:nth-child(2) {
+  left: 70%;
+  top: 30%;
+  animation-delay: 3s;
+  background: rgba(160, 82, 45, 0.3);
+}
+
+.floating-element:nth-child(3) {
+  left: 20%;
+  bottom: 20%;
+  animation-delay: 6s;
+  background: rgba(139, 69, 19, 0.3);
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-40px); }
+  100% { transform: translateY(0); }
+}
+
+/* Confetti Animation */
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #D2691E;
+  animation: confetti-fall 3s linear infinite;
+}
+
+.confetti:nth-child(odd) {
+  background: #B8860B;
+  animation-delay: 0.5s;
+}
+
+.confetti:nth-child(3n) {
+  background: #A0522D;
+  animation-delay: 1s;
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .payment-card {
+    margin-bottom: 1rem;
+  }
+  
+  .qris-container {
+    padding: 1.5rem;
+  }
+  
+  .step-indicator {
+    padding: 1rem;
+  }
+}
+
+/* Loading States */
+.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid #D2691E;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Coffee Theme Colors */
+:root {
+  --coffee-primary: #D2691E;
+  --coffee-secondary: #B8860B;
+  --coffee-dark: #2F1B14;
+  --coffee-light: #F4A460;
+  --coffee-accent: #A0522D;
+}
+
+/* Utility Classes */
+.text-coffee-primary { color: var(--coffee-primary); }
+.text-coffee-secondary { color: var(--coffee-secondary); }
+.bg-coffee-primary { background-color: var(--coffee-primary); }
+.bg-coffee-secondary { background-color: var(--coffee-secondary); }
+.border-coffee-primary { border-color: var(--coffee-primary); }
+
+/* Smooth Transitions */
+* {
+  transition: all 0.3s ease;
+}
+
+/* Focus States for Accessibility */
+button:focus,
+a:focus {
+  outline: 2px solid var(--coffee-primary);
+  outline-offset: 2px;
+}
+
+/* Print Styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-only {
+    display: block !important;
+  }
+}

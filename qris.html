@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pembayaran QRIS - Alief Coffee Shop</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .gradient-animate {
+      background: linear-gradient(180deg, #2F1B14 0%, #3D2914 50%, #4A2C17 100%);
+      background-image: url('./images/background-coffee.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-blend-mode: multiply;
+      background-attachment: fixed;
+    }
+
+    .glass {
+      background: rgba(47, 27, 20, 0.95);
+      border: 2px solid #D2691E;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .qris-container {
+      background: rgba(255, 255, 255, 0.98);
+      border: 3px solid #D2691E;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+    }
+
+    .floating {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background: rgba(210, 180, 140, 0.3);
+      border-radius: 50%;
+      filter: blur(50px);
+      animation: float 10s infinite ease-in-out;
+    }
+
+    .floating:nth-child(2) {
+      left: 70%;
+      top: 30%;
+      animation-delay: 3s;
+      background: rgba(160, 82, 45, 0.3);
+    }
+
+    .floating:nth-child(3) {
+      left: 20%;
+      bottom: 20%;
+      animation-delay: 6s;
+      background: rgba(139, 69, 19, 0.3);
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-40px); }
+      100% { transform: translateY(0); }
+    }
+
+    .pulse-animation {
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .countdown {
+      background: linear-gradient(135deg, #D2691E, #B8860B);
+      color: white;
+      font-weight: bold;
+    }
+
+    .step-indicator {
+      background: rgba(47, 27, 20, 0.9);
+      border: 2px solid rgba(210, 105, 30, 0.8);
+    }
+
+    .step-number {
+      background: linear-gradient(135deg, #D2691E, #B8860B);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 18px;
+      box-shadow: 0 4px 12px rgba(210, 105, 30, 0.3);
+    }
+  </style>
+</head>
+
+<body class="bg-[#2F1B14] font-sans text-gray-200 gradient-animate min-h-screen">
+  <!-- Floating Background Shapes -->
+  <div class="floating" style="left: 10%; top: 10%"></div>
+  <div class="floating"></div>
+  <div class="floating"></div>
+
+  <!-- Header -->
+  <header class="relative z-10 py-6">
+    <div class="max-w-6xl mx-auto px-6 flex items-center justify-between">
+      <a href="index.html" class="flex items-center space-x-3 hover:scale-105 transition">
+        <img src="./images/logo-coffee.png" alt="Alief Coffee Shop" class="w-12 h-12">
+        <span class="text-xl font-bold text-[#D2691E]">Alief Coffee Shop</span>
+      </a>
+      <a href="payment.html" class="text-gray-300 hover:text-[#D2691E] transition">
+        ← Kembali ke Pembayaran
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="relative z-10 py-12">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="text-center mb-12" data-aos="fade-up">
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
+          Pembayaran QRIS
+        </h1>
+        <p class="text-xl text-gray-300">
+          Scan QR Code di bawah untuk menyelesaikan pembayaran
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- QRIS Code Section -->
+        <div class="flex justify-center" data-aos="fade-right">
+          <div class="qris-container rounded-2xl p-8 text-center">
+            <div class="mb-6">
+              <h2 class="text-2xl font-bold text-[#2F1B14] mb-2">Scan QR Code</h2>
+              <p class="text-gray-600">Gunakan aplikasi mobile banking atau e-wallet Anda</p>
+            </div>
+            
+            <!-- QR Code Image -->
+            <div class="bg-white p-4 rounded-lg mb-6 pulse-animation">
+              <img src="./images/qris.jpeg" alt="QRIS Code" class="w-64 h-64 mx-auto object-contain">
+            </div>
+
+            <!-- Timer -->
+            <div class="countdown rounded-lg p-4 mb-6">
+              <p class="text-sm mb-2">Waktu pembayaran berakhir dalam:</p>
+              <div id="countdown" class="text-2xl font-mono">15:00</div>
+            </div>
+
+            <!-- Payment Amount -->
+            <div class="bg-[#2F1B14] border-2 border-[#D2691E] rounded-lg p-4 mb-6">
+              <p class="text-sm text-gray-300 mb-1">Total Pembayaran</p>
+              <p id="paymentAmount" class="text-3xl font-bold text-[#D2691E]">Rp 0</p>
+            </div>
+
+            <!-- Alternative Payment -->
+            <div class="space-y-3">
+              <button onclick="payWithWhatsApp()" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-lg transition">
+                Bayar via WhatsApp
+              </button>
+              <button onclick="goBack()" class="w-full bg-gray-500 hover:bg-gray-600 text-white font-semibold py-3 rounded-lg transition">
+                Pilih Metode Lain
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Instructions Section -->
+        <div class="space-y-6" data-aos="fade-left">
+          <div class="glass rounded-2xl p-6">
+            <h3 class="text-2xl font-bold text-[#D2691E] mb-6">Cara Pembayaran</h3>
+            
+            <div class="space-y-4">
+              <div class="step-indicator rounded-lg p-4 flex items-start space-x-4">
+                <div class="step-number">1</div>
+                <div>
+                  <h4 class="font-semibold text-white mb-1">Buka Aplikasi</h4>
+                  <p class="text-gray-300 text-sm">Buka aplikasi mobile banking atau e-wallet (GoPay, OVO, DANA, ShopeePay, dll)</p>
+                </div>
+              </div>
+
+              <div class="step-indicator rounded-lg p-4 flex items-start space-x-4">
+                <div class="step-number">2</div>
+                <div>
+                  <h4 class="font-semibold text-white mb-1">Scan QR Code</h4>
+                  <p class="text-gray-300 text-sm">Pilih menu "Scan QR" atau "Bayar" lalu arahkan kamera ke QR code di sebelah kiri</p>
+                </div>
+              </div>
+
+              <div class="step-indicator rounded-lg p-4 flex items-start space-x-4">
+                <div class="step-number">3</div>
+                <div>
+                  <h4 class="font-semibold text-white mb-1">Konfirmasi Pembayaran</h4>
+                  <p class="text-gray-300 text-sm">Periksa detail pembayaran dan konfirmasi transaksi</p>
+                </div>
+              </div>
+
+              <div class="step-indicator rounded-lg p-4 flex items-start space-x-4">
+                <div class="step-number">4</div>
+                <div>
+                  <h4 class="font-semibold text-white mb-1">Selesai</h4>
+                  <p class="text-gray-300 text-sm">Pesanan Anda akan diproses setelah pembayaran berhasil</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Order Summary -->
+          <div class="glass rounded-2xl p-6">
+            <h3 class="text-xl font-bold text-[#D2691E] mb-4">Detail Pesanan</h3>
+            <div id="orderSummary" class="space-y-3">
+              <!-- Will be filled by JavaScript -->
+            </div>
+          </div>
+
+          <!-- Support Info -->
+          <div class="glass rounded-2xl p-6">
+            <h3 class="text-xl font-bold text-[#D2691E] mb-4">Butuh Bantuan?</h3>
+            <p class="text-gray-300 mb-4">Jika mengalami kesulitan dalam pembayaran, hubungi kami:</p>
+            <div class="space-y-2">
+              <a href="https://wa.me/62895638924070" class="flex items-center space-x-2 text-green-400 hover:text-green-300 transition">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                </svg>
+                <span>WhatsApp: +62 895-6389-24070</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 1000, once: true });
+
+    let countdownTime = 15 * 60; // 15 minutes in seconds
+
+    // Get order data from URL parameters
+    function getOrderData() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const itemName = urlParams.get('item') || 'Cappucino';
+      const itemPrice = urlParams.get('price') || '25000';
+      const itemImage = urlParams.get('image') || './images/cappucino.jpg';
+      
+      return {
+        name: itemName,
+        price: parseInt(itemPrice),
+        image: itemImage,
+        quantity: 1
+      };
+    }
+
+    // Display order summary and payment amount
+    function displayOrderInfo() {
+      const order = getOrderData();
+      
+      // Update payment amount
+      document.getElementById('paymentAmount').textContent = `Rp ${order.price.toLocaleString('id-ID')}`;
+      
+      // Update order summary
+      document.getElementById('orderSummary').innerHTML = `
+        <div class="flex items-center space-x-3 p-3 bg-[#2F1B14] border border-[#D2691E] rounded-lg">
+          <img src="${order.image}" alt="${order.name}" class="w-12 h-12 rounded-lg object-cover">
+          <div class="flex-1">
+            <h4 class="font-semibold text-white">${order.name}</h4>
+            <p class="text-sm text-gray-400">Qty: ${order.quantity}</p>
+          </div>
+          <p class="font-semibold text-[#D2691E]">Rp ${order.price.toLocaleString('id-ID')}</p>
+        </div>
+      `;
+    }
+
+    // Countdown timer
+    function startCountdown() {
+      const countdownElement = document.getElementById('countdown');
+      
+      const timer = setInterval(() => {
+        const minutes = Math.floor(countdownTime / 60);
+        const seconds = countdownTime % 60;
+        
+        countdownElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        
+        if (countdownTime <= 0) {
+          clearInterval(timer);
+          alert('Waktu pembayaran telah habis. Silakan ulangi proses pembayaran.');
+          window.location.href = 'payment.html';
+        }
+        
+        countdownTime--;
+      }, 1000);
+    }
+
+    // Payment via WhatsApp
+    function payWithWhatsApp() {
+      const order = getOrderData();
+      const message = `Halo! Saya ingin melakukan pembayaran untuk pesanan:\n\n🍵 ${order.name}\n💰 Rp ${order.price.toLocaleString('id-ID')}\n\nSaya mengalami kesulitan dengan QRIS. Bisakah dibantu untuk metode pembayaran lainnya? Terima kasih!`;
+      const whatsappUrl = `https://wa.me/62895638924070?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank');
+    }
+
+    // Go back to payment selection
+    function goBack() {
+      const order = getOrderData();
+      window.location.href = `payment.html?item=${encodeURIComponent(order.name)}&price=${order.price}&image=${encodeURIComponent(order.image)}`;
+    }
+
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', function() {
+      displayOrderInfo();
+      startCountdown();
+    });
+
+    // Simulate payment success (for demo purposes)
+    // In real implementation, this would be handled by payment gateway callback
+    setTimeout(() => {
+      // Uncomment below for demo payment success
+      // if (confirm('Simulasi: Pembayaran berhasil! Klik OK untuk melihat konfirmasi.')) {
+      //   window.location.href = 'success.html';
+      // }
+    }, 5000);
+  </script>
+</body>
+</html>
